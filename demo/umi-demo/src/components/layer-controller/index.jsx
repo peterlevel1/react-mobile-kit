@@ -1,9 +1,9 @@
 import { cloneElement, createElement, useCallback, useEffect, useState } from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
+import PropTypes from 'prop-types';
 import document from 'global/document';
 import { v4 as uuidv4 } from 'uuid';
 import LayerGeneral from '../layer-general';
-import PropTypes from 'prop-types';
 import './index.less';
 
 const prefix = 'rbk-LayerController';
