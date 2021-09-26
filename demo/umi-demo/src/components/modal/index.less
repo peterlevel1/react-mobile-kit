@@ -1,0 +1,32 @@
+@import '../../styles/vars.less';
+@import '../../styles/mixins.less';
+
+.rbk-Modal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: #FFFFFF;
+
+  width: 0;
+  height: 0;
+  opacity: 0;
+
+  &.enter {
+    width: 80%;
+    height: 50%;
+    opacity: 1;
+  }
+
+  &.active {
+    width: 80%;
+    height: 50%;
+    opacity: 1;
+  }
+
+  &.leave {
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+}

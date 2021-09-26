@@ -1,0 +1,38 @@
+@import '../../styles/vars.less';
+@import '../../styles/mixins.less';
+
+@prefix: 'rbk-LayerGeneral';
+
+.transition() {
+  transition: all 0.24s ease-in-out;
+}
+
+.rbk-LayerGeneral {
+  z-index: @layer-zindex;
+  .layer-take-over-space();
+  background-color: transparent;
+
+  &-mask {
+    z-index: @layer-zindex + 1;
+    .layer-take-over-space();
+    background-color: rgba(0, 0, 0, 0);
+    .transition();
+
+    &.enter {
+      background-color: rgba(0, 0, 0, 0.32);
+    }
+
+    &.active {
+      background-color: rgba(0, 0, 0, 0.32);
+    }
+
+    &.leave {
+      background-color: rgba(0, 0, 0, 0);
+    }
+  }
+
+  & > *:not(.rbk-LayerGeneral-mask) {
+    z-index: @layer-zindex + 2;
+    .transition();
+  }
+}
