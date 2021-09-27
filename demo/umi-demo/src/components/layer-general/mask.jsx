@@ -6,7 +6,7 @@ import './mask.less';
 
 const prefixMask = `${prefix}-Mask`;
 
-function Mask({ className, status, lockStatus, closable, onClose, ...restProps }) {
+function Mask({ theme, className, status, lockStatus, closable, onClose, ...restProps }) {
   const onClick = useCallback((ev) => {
     ev.stopPropagation();
 
@@ -19,7 +19,7 @@ function Mask({ className, status, lockStatus, closable, onClose, ...restProps }
 
   const props = {
     ...restProps,
-    className: classNames(prefixMask, [className, status]),
+    className: classNames(prefixMask, [className, theme, status]),
     onClick,
     onTransitionEnd: lockStatus,
   };
@@ -28,6 +28,7 @@ function Mask({ className, status, lockStatus, closable, onClose, ...restProps }
 }
 
 Mask.propTypes = {
+  theme: PropTypes.string,
   className: PropTypes.string,
   closable: PropTypes.bool,
   status: PropTypes.string,
@@ -36,6 +37,7 @@ Mask.propTypes = {
 };
 
 Mask.defaultProps = {
+  theme: 'dark',
   className: '',
   status: '',
   closable: false,

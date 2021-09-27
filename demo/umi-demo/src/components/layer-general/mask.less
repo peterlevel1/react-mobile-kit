@@ -5,17 +5,35 @@
   .layer-take-over-space(absolute, @layer-mask-zindex);
   .transition();
 
-  background-color: rgba(0, 0, 0, 0);
-
-  &.enter {
-    background-color: rgba(0, 0, 0, 0.48);
-  }
-
-  &.active {
-    background-color: rgba(0, 0, 0, 0.48);
-  }
-
-  &.leave {
+  &.dark {
     background-color: rgba(0, 0, 0, 0);
+
+    &.enter {
+      background-color: rgba(0, 0, 0, 0.48);
+    }
+
+    &.active {
+      background-color: rgba(0, 0, 0, 0.48);
+    }
+
+    &.leave {
+      background-color: rgba(0, 0, 0, 0);
+    }
+  }
+
+  &.light {
+    background-color: rgba(0, 0, 0, 0);
+
+    &.enter {
+      background-color: rgba(0, 0, 0, 0.01);
+    }
+
+    &.active {
+      background-color: rgba(0, 0, 0, 0.01);
+    }
+
+    &.leave {
+      background-color: rgba(0, 0, 0, 0);
+    }
   }
 }
