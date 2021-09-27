@@ -7,13 +7,9 @@ import LayerGeneral from '../layer-general';
 import './index.less';
 
 const prefix = 'rbk-LayerController';
-const LAYER_TYPE_COMPONENT = {
-  general: LayerGeneral
-};
 
 function LayerController({ active, controller, ...restProps }) {
-  const { layerType, insertLayer, removeLayer, createLayer } = controller;
-  const component = LAYER_TYPE_COMPONENT[layerType];
+  const { component, insertLayer, removeLayer, createLayer } = controller;
 
   // the identifier for the layer node
   const [ id ] = useState(() => uuidv4());
@@ -85,7 +81,10 @@ LayerController.defaultProps = {
 
   // if ssr, as there is no document, so rbk provide a way for rendering
   controller: {
-    layerType: 'general',
+    /**
+     * set the default component for layer controller
+     */
+    component: LayerGeneral,
 
     /**
      * @param {String} id
