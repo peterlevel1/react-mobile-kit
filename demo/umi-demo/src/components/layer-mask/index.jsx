@@ -4,9 +4,9 @@ import classNames from 'classnames';
 import { LAYER_STATUS } from '../../utils/constants';
 import './index.less';
 
-const prefixMask = 'rbk-Mask';
+const prefixMask = 'rbk-LayerMask';
 
-function Mask({ theme, className, status, closable, onClose, ...restProps }) {
+function LayerMask({ theme, className, status, closable, onClose, ...restProps }) {
   const onClick = useCallback((ev) => {
     ev.stopPropagation();
 
@@ -30,7 +30,7 @@ function Mask({ theme, className, status, closable, onClose, ...restProps }) {
   return <div {...props} />;
 }
 
-Mask.propTypes = {
+LayerMask.propTypes = {
   theme: PropTypes.oneOf(['dark', 'light']),
   className: PropTypes.string,
   closable: PropTypes.bool,
@@ -38,7 +38,7 @@ Mask.propTypes = {
   onClose: PropTypes.func,
 };
 
-Mask.defaultProps = {
+LayerMask.defaultProps = {
   theme: 'dark',
   className: '',
   status: '',
@@ -46,4 +46,4 @@ Mask.defaultProps = {
   onClose: () => {},
 };
 
-export default Mask;
+export default LayerMask;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { requestAnimationFrame, noop } from '../../utils';
 import { LAYER_STATUS } from '../../utils/constants';
-import Mask from '../mask';
+import LayerMask from '../layer-mask';
 import './index.less';
 
 const prefix = 'rbk-LayerGeneral';
@@ -87,7 +87,7 @@ function LayerGeneral({ remove, children, ...restProps }) {
 
   return (
     <div {...layerProps}>
-      <Mask {...maskProps2} />
+      <LayerMask {...maskProps2} />
       {cloneElement(children, { ...childrenProps, status })}
     </div>
   );
