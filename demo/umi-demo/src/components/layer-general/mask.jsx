@@ -28,7 +28,7 @@ function Mask({ theme, className, status, lockStatus, closable, onClose, ...rest
 }
 
 Mask.propTypes = {
-  theme: PropTypes.string,
+  theme: PropTypes.oneOf(['dark', 'light']),
   className: PropTypes.string,
   closable: PropTypes.bool,
   status: PropTypes.string,
