@@ -2,8 +2,7 @@
 @import '../../styles/mixins.less';
 
 .rbk-LayerGeneral-Mask {
-  z-index: @layer-mask-zindex;
-  .layer-take-over-space();
+  .layer-take-over-space(absolute, @layer-mask-zindex);
   .transition();
 
   background-color: rgba(0, 0, 0, 0);

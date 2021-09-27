@@ -3,16 +3,11 @@
 
 @prefix: 'rbk-LayerGeneral';
 
-.transition() {
-  transition: all 0.24s ease-in-out;
-}
-
 .rbk-LayerGeneral {
-  z-index: @layer-zindex;
-  .layer-take-over-space();
+  .layer-take-over-space(absolute, @layer-zindex);
   background-color: transparent;
 
-  & > *:not(.rbk-LayerGeneral-mask) {
+  & > *:not(.rbk-LayerGeneral-Mask) {
     z-index: @layer-component-zindex;
     .transition();
   }
