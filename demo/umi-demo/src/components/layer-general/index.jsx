@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { STATUS, prefix } from './constants';
 import { requestAnimationFrame, noop } from '../../utils';
-import Mask from './mask';
+import Mask from '../mask';
 import './index.less';
 
 function LayerGeneral({ remove, children, ...restProps }) {

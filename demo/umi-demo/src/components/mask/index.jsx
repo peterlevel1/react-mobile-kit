@@ -1,10 +1,9 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { prefix } from './constants';
-import './mask.less';
+import './index.less';
 
-const prefixMask = `${prefix}-Mask`;
+const prefixMask = 'rbk-Mask';
 
 function Mask({ theme, className, status, lockStatus, closable, onClose, ...restProps }) {
   const onClick = useCallback((ev) => {
