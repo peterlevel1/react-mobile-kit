@@ -1,0 +1,22 @@
+@import '../../styles/vars.less';
+@import '../../styles/mixins.less';
+
+.rbk-LayerGeneral-Mask {
+  z-index: @layer-mask-zindex;
+  .layer-take-over-space();
+  .transition();
+
+  background-color: rgba(0, 0, 0, 0);
+
+  &.enter {
+    background-color: rgba(0, 0, 0, 0.32);
+  }
+
+  &.active {
+    background-color: rgba(0, 0, 0, 0.32);
+  }
+
+  &.leave {
+    background-color: rgba(0, 0, 0, 0);
+  }
+}

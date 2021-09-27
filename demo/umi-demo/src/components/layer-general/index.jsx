@@ -1,39 +1,22 @@
 import React, { cloneElement, useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { requestAnimationFrame } from '../../utils/animation-frame';
+import { STATUS, prefix } from './constants';
+import { requestAnimationFrame, noop } from '../../utils';
+import Mask from './mask';
 import './index.less';
 
-const prefix = 'rbk-LayerGeneral';
-const STATUS = {
-  DEFAULT: '',
-  ENTER: 'enter',
-  ACTIVE: 'active',
-  LEAVE: 'leave',
-};
-
 function LayerGeneral({ remove, children, ...restProps }) {
-  const { active, onClose, className, style, onClick, clickable, maskClassName, enableAnimation, ...childrenProps } = restProps;
+  const { active, onClose, className, style, maskProps, enableAnimation, ...childrenProps } = restProps;
   const [ status, setStatus ] = useState(STATUS.DEFAULT);
   const [ mounted, setMounted ] = useState(false);
 
-  const onClickLayer = useCallback((ev) => {
-    ev.stopPropagation();
-
-    if (!clickable) {
-      return;
+  // handle status at the end of the transition
+  const lockStatus = useCallback((ev) => {
+    if (ev?.stopPropagation) {
+      ev.stopPropagation();
     }
 
-    if (onClick) {
-      onClick(ev);
-      return;
-    }
-
-    onClose();
-  }, [clickable]);
-
-  const onTransitionEnd = useCallback((ev) => {
-    ev.stopPropagation();
     // enter(end) -> active
     if (active) {
       setStatus(STATUS.ACTIVE);
@@ -43,6 +26,7 @@ function LayerGeneral({ remove, children, ...restProps }) {
     setStatus(STATUS.DEFAULT);
   }, [active]);
 
+  // identify the mounted for triggering transition
   useLayoutEffect(() => {
     requestAnimationFrame(() => {
       setMounted(true);
@@ -55,25 +39,32 @@ function LayerGeneral({ remove, children, ...restProps }) {
     }
 
     if (active) {
+      // only handle the start point: default
       if (status === STATUS.DEFAULT) {
+        // default -> active
         if (!enableAnimation) {
           setStatus(STATUS.ACTIVE);
           return;
         }
+        // default -> enter
         setStatus(STATUS.ENTER);
       }
       return;
     }
 
+    // active is false, set the right status
     if (status === STATUS.ACTIVE) {
+      // active -> default
       if (!enableAnimation) {
         setStatus(STATUS.DEFAULT);
         return;
       }
+      // active -> leave
       setStatus(STATUS.LEAVE);
       return;
     }
 
+    // default -> destroy
     if (status === STATUS.DEFAULT) {
       setMounted(false);
       remove();
@@ -83,21 +74,18 @@ function LayerGeneral({ remove, children, ...restProps }) {
   const layerProps = {
     className: classNames(prefix, [className]),
     style,
-    onClick: onClickLayer
   };
 
-  const maskProps = {
-    className: classNames(`${prefix}-mask`, [maskClassName, status]),
-    onTransitionEnd: null,
+  const maskProps2 = {
+    ...maskProps,
+    onClose,
+    status,
+    lockStatus: enableAnimation ? lockStatus : noop,
   };
-
-  if (enableAnimation) {
-    maskProps.onTransitionEnd = onTransitionEnd;
-  }
 
   return (
     <div {...layerProps}>
-      <div {...maskProps} />
+      <Mask {...maskProps2} />
       {cloneElement(children, { ...childrenProps, status })}
     </div>
   );
@@ -109,19 +97,20 @@ LayerGeneral.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   onClick: PropTypes.func,
-  clickable: PropTypes.bool,
-  maskClassName: PropTypes.string,
+  maskProps: PropTypes.object,
   enableAnimation: PropTypes.bool,
 };
 
 LayerGeneral.defaultProps = {
-  onClose: () => null,
+  onClose: () => {},
   active: false,
   className: '',
   style: null,
   onClick: null,
-  clickable: false,
-  maskClassName: '',
+  maskProps: {
+    closable: false,
+    className: '',
+  },
   enableAnimation: true,
 };
 

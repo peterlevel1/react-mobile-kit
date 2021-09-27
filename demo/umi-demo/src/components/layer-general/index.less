@@ -12,27 +12,8 @@
   .layer-take-over-space();
   background-color: transparent;
 
-  &-mask {
-    z-index: @layer-zindex + 1;
-    .layer-take-over-space();
-    background-color: rgba(0, 0, 0, 0);
-    .transition();
-
-    &.enter {
-      background-color: rgba(0, 0, 0, 0.32);
-    }
-
-    &.active {
-      background-color: rgba(0, 0, 0, 0.32);
-    }
-
-    &.leave {
-      background-color: rgba(0, 0, 0, 0);
-    }
-  }
-
   & > *:not(.rbk-LayerGeneral-mask) {
-    z-index: @layer-zindex + 2;
+    z-index: @layer-component-zindex;
     .transition();
   }
 }
