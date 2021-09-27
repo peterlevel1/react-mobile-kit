@@ -1,14 +1,16 @@
 import React, { cloneElement, useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { STATUS, prefix } from './constants';
 import { requestAnimationFrame, noop } from '../../utils';
+import { LAYER_STATUS } from '../../utils/constants';
 import Mask from '../mask';
 import './index.less';
 
+const prefix = 'rbk-LayerGeneral';
+
 function LayerGeneral({ remove, children, ...restProps }) {
   const { active, onClose, className, style, maskProps, enableAnimation, ...childrenProps } = restProps;
-  const [ status, setStatus ] = useState(STATUS.DEFAULT);
+  const [ status, setStatus ] = useState(LAYER_STATUS.DEFAULT);
   const [ mounted, setMounted ] = useState(false);
 
   // handle status at the end of the transition
@@ -19,11 +21,11 @@ function LayerGeneral({ remove, children, ...restProps }) {
 
     // enter(end) -> active
     if (active) {
-      setStatus(STATUS.ACTIVE);
+      setStatus(LAYER_STATUS.ACTIVE);
       return;
     }
     // leave(end) -> default
-    setStatus(STATUS.DEFAULT);
+    setStatus(LAYER_STATUS.DEFAULT);
   }, [active]);
 
   // identify the mounted for triggering transition
@@ -40,32 +42,32 @@ function LayerGeneral({ remove, children, ...restProps }) {
 
     if (active) {
       // only handle the start point: default
-      if (status === STATUS.DEFAULT) {
+      if (status === LAYER_STATUS.DEFAULT) {
         // default -> active
         if (!enableAnimation) {
-          setStatus(STATUS.ACTIVE);
+          setStatus(LAYER_STATUS.ACTIVE);
           return;
         }
         // default -> enter
-        setStatus(STATUS.ENTER);
+        setStatus(LAYER_STATUS.ENTER);
       }
       return;
     }
 
     // active is false, set the right status
-    if (status === STATUS.ACTIVE) {
+    if (status === LAYER_STATUS.ACTIVE) {
       // active -> default
       if (!enableAnimation) {
-        setStatus(STATUS.DEFAULT);
+        setStatus(LAYER_STATUS.DEFAULT);
         return;
       }
       // active -> leave
-      setStatus(STATUS.LEAVE);
+      setStatus(LAYER_STATUS.LEAVE);
       return;
     }
 
     // default -> destroy
-    if (status === STATUS.DEFAULT) {
+    if (status === LAYER_STATUS.DEFAULT) {
       setMounted(false);
       remove();
     }

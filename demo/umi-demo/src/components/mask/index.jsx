@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { LAYER_STATUS } from '../../utils/constants';
 import './index.less';
 
 const prefixMask = 'rbk-Mask';
@@ -9,12 +10,16 @@ function Mask({ theme, className, status, closable, onClose, ...restProps }) {
   const onClick = useCallback((ev) => {
     ev.stopPropagation();
 
+    if (status === LAYER_STATUS.ENTER || status === LAYER_STATUS.LEAVE) {
+      return;
+    }
+
     if (!closable) {
       return;
     }
 
     onClose();
-  }, [closable]);
+  }, [closable, status]);
 
   const props = {
     ...restProps,
