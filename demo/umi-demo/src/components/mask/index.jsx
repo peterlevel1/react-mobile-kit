@@ -5,7 +5,7 @@ import './index.less';
 
 const prefixMask = 'rbk-Mask';
 
-function Mask({ theme, className, status, lockStatus, closable, onClose, ...restProps }) {
+function Mask({ theme, className, status, closable, onClose, ...restProps }) {
   const onClick = useCallback((ev) => {
     ev.stopPropagation();
 
@@ -20,7 +20,6 @@ function Mask({ theme, className, status, lockStatus, closable, onClose, ...rest
     ...restProps,
     className: classNames(prefixMask, [className, theme, status]),
     onClick,
-    onTransitionEnd: lockStatus,
   };
 
   return <div {...props} />;
@@ -31,7 +30,6 @@ Mask.propTypes = {
   className: PropTypes.string,
   closable: PropTypes.bool,
   status: PropTypes.string,
-  lockStatus: PropTypes.func,
   onClose: PropTypes.func,
 };
 
@@ -40,7 +38,6 @@ Mask.defaultProps = {
   className: '',
   status: '',
   closable: false,
-  lockStatus: () => {},
   onClose: () => {},
 };
 

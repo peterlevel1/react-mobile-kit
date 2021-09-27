@@ -80,7 +80,7 @@ function LayerGeneral({ remove, children, ...restProps }) {
     ...maskProps,
     onClose,
     status,
-    lockStatus: enableAnimation ? lockStatus : noop,
+    onTransitionEnd: enableAnimation ? lockStatus : noop,
   };
 
   return (
