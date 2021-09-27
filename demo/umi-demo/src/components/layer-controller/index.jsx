@@ -1,4 +1,4 @@
-import { Component, cloneElement, createElement, useCallback, useEffect, useState } from 'react';
+import { cloneElement, createElement, useCallback, useEffect, useState } from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import PropTypes from 'prop-types';
 import document from 'global/document';
