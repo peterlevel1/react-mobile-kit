@@ -1,15 +1,14 @@
-// source: https://github.com/darius/requestAnimationFrame/blob/master/requestAnimationFrame.js
-
-// Adapted from https://gist.github.com/paulirish/1579671 which derived from
-// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
-// http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
-
-// requestAnimationFrame polyfill by Erik Möller.
-// Fixes from Paul Irish, Tino Zijdel, Andrew Mao, Klemen Slavič, Darius Bacon
-
-// MIT license
-
 import window from 'global/window';
+
+/**
+ * source: https://github.com/darius/requestAnimationFrame/blob/master/requestAnimationFrame.js
+ * Adapted from https://gist.github.com/paulirish/1579671 which derived from
+ * http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+ * http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
+ * requestAnimationFrame polyfill by Erik Möller.
+ * Fixes from Paul Irish, Tino Zijdel, Andrew Mao, Klemen Slavič, Darius Bacon
+ * MIT license
+ */
 
 function getAnimationFrameHandlers() {
   const vendors = ['webkit', 'moz'];
@@ -52,7 +51,7 @@ function getAnimationFrameHandlers() {
   return {
     requestAnimationFrame,
     cancelAnimationFrame,
-  }
+  };
 }
 
 const { requestAnimationFrame, cancelAnimationFrame } = getAnimationFrameHandlers();
