@@ -8,7 +8,7 @@ const prefix = 'rbk-Modal';
 
 function Modal({ active, onClose }) {
   return (
-    <Layer active={active} onClose={onClose} maskProps={{ theme: 'light', closable: true }}>
+    <Layer active={active} onClose={onClose} maskProps={{ theme: 'dark', closable: true }}>
       <ModalElement />
     </Layer>
   );
