@@ -14,16 +14,7 @@ function Layer({ active, component, ...restProps }) {
     component: component || LayerGeneral,
     className: prefix
   }));
-
-  if (controller) {
-    controller.sync = sync;
-  }
-
-  useEffect(() => {
-    return () => {
-      controller.destroy();
-    };
-  }, [controller]);
+  controller.sync = sync;
 
   useEffect(() => {
     if (!controller) {
