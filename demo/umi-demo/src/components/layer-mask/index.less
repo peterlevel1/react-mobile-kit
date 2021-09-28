@@ -1,8 +1,9 @@
 @import '../../styles/vars.less';
 @import '../../styles/mixins.less';
 
-.rbk-LayerMask {
-  .layer-take-over-space(absolute, @layer-mask-zindex);
+.rmk-LayerMask {
+  z-index: @layer-mask-zindex;
+  .layer-take-over-space(absolute);
   .transition();
 
   &.dark {

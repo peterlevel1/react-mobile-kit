@@ -10,6 +10,7 @@
   "dependencies": {
     "classnames": "^2.3.1",
     "global": "^4.4.0",
+    "moment": "^2.29.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -30,8 +31,7 @@
     "umi-plugin-react": "^1.8.4"
   },
   "lint-staged": {
-    "*.{js,jsx}": [
-    ]
+    "*.{js,jsx}": []
   },
   "engines": {
     "node": ">=8.0.0"

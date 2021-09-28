@@ -1,15 +1,16 @@
 import React, { cloneElement, useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { requestAnimationFrame, noop } from '../../utils';
-import { LAYER_STATUS } from '../../utils/constants';
 import LayerMask from '../layer-mask';
+import { requestAnimationFrame } from '../../utils/animation-frame';
+import noop from '../../utils/noop';
+import { LAYER_STATUS } from '../../utils/constants';
 import './index.less';
 
-const prefix = 'rbk-LayerGeneral';
+const prefix = 'rmk-LayerGeneral';
 
 function LayerGeneral({ remove, children, ...restProps }) {
-  const { active, onClose, className, style, maskProps, enableAnimation, ...childrenProps } = restProps;
+  const { active, onClose, className, style, mask, maskProps, enableAnimation, ...childrenProps } = restProps;
   const [ status, setStatus ] = useState(LAYER_STATUS.DEFAULT);
   const [ mounted, setMounted ] = useState(false);
 
@@ -78,16 +79,18 @@ function LayerGeneral({ remove, children, ...restProps }) {
     style,
   };
 
+  const effectCb = enableAnimation ? lockStatus : noop;
   const maskProps2 = {
     ...maskProps,
     onClose,
     status,
-    onTransitionEnd: enableAnimation ? lockStatus : noop,
+    onTransitionEnd: effectCb,
+    onAnimationEnd: effectCb,
   };
 
   return (
     <div {...layerProps}>
-      <LayerMask {...maskProps2} />
+      {React.createElement(mask || LayerMask, { ...maskProps2 })}
       {cloneElement(children, { ...childrenProps, status })}
     </div>
   );
@@ -99,6 +102,7 @@ LayerGeneral.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   onClick: PropTypes.func,
+  mask: PropTypes.element,
   maskProps: PropTypes.object,
   enableAnimation: PropTypes.bool,
 };
@@ -109,11 +113,12 @@ LayerGeneral.defaultProps = {
   className: '',
   style: null,
   onClick: null,
+  enableAnimation: true,
+  mask: null,
   maskProps: {
     closable: false,
     className: '',
   },
-  enableAnimation: true,
 };
 
 export default LayerGeneral;

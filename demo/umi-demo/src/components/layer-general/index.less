@@ -1,14 +1,7 @@
 @import '../../styles/vars.less';
 @import '../../styles/mixins.less';
 
-@prefix: 'rbk-LayerGeneral';
-
-.rbk-LayerGeneral {
-  .layer-take-over-space(absolute, @layer-zindex);
+.rmk-LayerGeneral {
+  .layer-take-over-space(absolute);
   background-color: transparent;
-
-  & > *:not(.rbk-LayerMask) {
-    z-index: @layer-component-zindex;
-    .transition();
-  }
 }

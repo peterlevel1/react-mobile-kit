@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { LAYER_STATUS } from '../../utils/constants';
 import './index.less';
 
-const prefixMask = 'rbk-LayerMask';
+const prefixMask = 'rmk-LayerMask';
 
 function LayerMask({ theme, className, status, closable, onClose, ...restProps }) {
   const onClick = useCallback((ev) => {

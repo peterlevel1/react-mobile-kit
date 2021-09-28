@@ -2,6 +2,9 @@
 @import '../../styles/mixins.less';
 
 .rbk-Modal {
+  z-index: @layer-component-zindex;
+  .transition();
+
   position: absolute;
   left: 50%;
   top: 50%;
