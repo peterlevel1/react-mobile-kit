@@ -10,23 +10,20 @@ function Layer({ active, component, ...restProps }) {
   const [ , setTime ] = useState(0);
   const sync = useCallback(() => setTime((n) => (n + 1)), []);
 
-  const [ controller, setController ] = useState(null);
+  const [ controller ] = useState(() => new LayerController({
+    component: component || LayerGeneral,
+    className: prefix
+  }));
+
   if (controller) {
     controller.sync = sync;
   }
 
   useEffect(() => {
-    const controller = new LayerController({
-      component: component || LayerGeneral,
-      className: prefix
-    });
-
-    setController(controller);
-
     return () => {
       controller.destroy();
     };
-  }, []);
+  }, [controller]);
 
   useEffect(() => {
     if (!controller) {
