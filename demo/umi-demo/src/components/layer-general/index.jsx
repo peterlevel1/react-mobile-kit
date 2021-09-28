@@ -10,7 +10,7 @@ import './index.less';
 const prefix = 'rmk-LayerGeneral';
 
 function LayerGeneral({ remove, children, ...restProps }) {
-  const { active, onClose, className, style, mask, maskProps, enableAnimation, ...childrenProps } = restProps;
+  const { active, onClose, className, style, noMask, mask, maskProps, enableAnimation, ...childrenProps } = restProps;
   const [ status, setStatus ] = useState(LAYER_STATUS.DEFAULT);
   const [ mounted, setMounted ] = useState(false);
 
@@ -79,19 +79,25 @@ function LayerGeneral({ remove, children, ...restProps }) {
     style,
   };
 
-  const effectCb = enableAnimation ? lockStatus : noop;
-  const maskProps2 = {
-    ...maskProps,
-    onClose,
-    status,
-    onTransitionEnd: effectCb,
-    onAnimationEnd: effectCb,
-  };
+  let maskRendered = null;
+
+  if (!noMask) {
+    const effectCb = enableAnimation ? lockStatus : noop;
+    const maskProps2 = {
+      ...maskProps,
+      onClose,
+      status,
+      onTransitionEnd: effectCb,
+      onAnimationEnd: effectCb,
+    };
+
+    maskRendered = React.createElement(mask || LayerMask, { ...maskProps2 });
+  }
 
   return (
     <div {...layerProps}>
-      {React.createElement(mask || LayerMask, { ...maskProps2 })}
-      {cloneElement(children, { ...childrenProps, status })}
+      {maskRendered}
+      {cloneElement(children, { ...childrenProps, status, lockStatus })}
     </div>
   );
 }
@@ -102,6 +108,7 @@ LayerGeneral.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   onClick: PropTypes.func,
+  noMask: PropTypes.bool,
   mask: PropTypes.element,
   maskProps: PropTypes.object,
   enableAnimation: PropTypes.bool,
@@ -114,6 +121,7 @@ LayerGeneral.defaultProps = {
   style: null,
   onClick: null,
   enableAnimation: true,
+  noMask: false,
   mask: null,
   maskProps: {
     closable: false,
