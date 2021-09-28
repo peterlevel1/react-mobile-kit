@@ -97,7 +97,7 @@ function LayerGeneral({ remove, children, ...restProps }) {
   return (
     <div {...layerProps}>
       {maskRendered}
-      {cloneElement(children, { ...childrenProps, status, lockStatus })}
+      {cloneElement(children, { ...childrenProps, status, lockStatus, onClose })}
     </div>
   );
 }
