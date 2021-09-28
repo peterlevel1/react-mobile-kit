@@ -7,8 +7,8 @@ import './index.less';
 const prefix = 'rmk-Layer';
 
 function Layer({ active, component, ...restProps }) {
-  const [ , setTime ] = useState(0);
-  const sync = useCallback(() => setTime((n) => (n + 1)), []);
+  const [ , update ] = useState(0);
+  const sync = useCallback(() => update((n) => (n + 1)), []);
 
   const [ controller ] = useState(() => new LayerController({
     component: component || LayerGeneral,
