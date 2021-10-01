@@ -1,17 +1,32 @@
 import { createElement, cloneElement } from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import document from 'global/document';
-import { v4 as uuidv4 } from 'uuid';
+
+let controllerId = 0;
+const prefix = 'rmk-LayerController';
+const controllerMap = new Map();
 
 class LayerController {
-  constructor({ component, className }) {
+  static getControllerById(id) {
+    return controllerMap.get(id);
+  }
+
+  constructor({ id, component, className }) {
+    this.id = id && typeof id === 'string' ? id : controllerId++;
+
+    if (controllerMap.get(this.id)) {
+      throw new Error(`LayerController: id:${this.id} is existed`);
+    }
+
+    controllerMap.set(this.id, this);
+
     this.component = component;
     this.layer = null;
     this.element = null;
-    this.id = uuidv4();
     this.className = className;
     this.created = false;
     this.mounted = false;
+    this.destroyed = false;
     this.sync = null;
 
     this.create();
@@ -23,7 +38,7 @@ class LayerController {
     }
 
     const layer = document.createElement('div');
-    layer.setAttribute('id', this.id);
+    layer.setAttribute('id', `${prefix}-${this.id}`);
     layer.classList.add(this.className);
 
     this.layer = layer;
@@ -73,6 +88,10 @@ class LayerController {
   }
 
   destroy() {
+    if (this.destroyed) {
+      return;
+    }
+
     this.sync = null;
 
     if (this.mounted) {
@@ -84,6 +103,9 @@ class LayerController {
     this.element = null;
     this.created = false;
     this.mounted = false;
+
+    controllerMap.set(this.id, null);
+    this.destroyed = true;
   }
 
   render(props) {

@@ -1,6 +1,42 @@
 @import '../../styles/vars.less';
 @import '../../styles/mixins.less';
 
+@keyframes rmkLayerMaskDarkEnter {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+  }
+  to {
+    background-color: rgba(0, 0, 0, 0.48);
+  }
+}
+
+@keyframes rmkLayerMaskDarkLeave {
+  from {
+    background-color: rgba(0, 0, 0, 0.48);
+  }
+  to {
+    background-color: rgba(0, 0, 0, 0);
+  }
+}
+
+@keyframes rmkLayerMaskLightEnter {
+  from {
+    background-color: rgba(255, 255, 255, 0);
+  }
+  to {
+    background-color: rgba(255, 255, 255, 0.01);
+  }
+}
+
+@keyframes rmkLayerMaskLightLeave {
+  from {
+    background-color: rgba(255, 255, 255, 0.01);
+  }
+  to {
+    background-color: rgba(255, 255, 255, 0);
+  }
+}
+
 .rmk-LayerMask {
   z-index: @layer-mask-zindex;
   .layer-take-over-space(absolute);
@@ -9,26 +45,32 @@
   &.dark {
     background-color: rgba(0, 0, 0, 0);
 
-    &.enter,
+    &.enter {
+      animation: rmkLayerMaskDarkEnter @layer-mask-animation-duration @layer-mask-animation-effect 0s 1 normal forwards;
+    }
+
     &.active {
       background-color: rgba(0, 0, 0, 0.48);
     }
 
     &.leave {
-      background-color: rgba(0, 0, 0, 0);
+      animation: rmkLayerMaskDarkLeave @layer-mask-animation-duration @layer-mask-animation-effect 0s 1 normal forwards;
     }
   }
 
   &.light {
     background-color: rgba(255, 255, 255, 0);
 
-    &.enter,
+    &.enter {
+      animation: rmkLayerMaskLightEnter @layer-mask-animation-duration @layer-mask-animation-effect 0s 1 normal forwards;
+    }
+
     &.active {
       background-color: rgba(255, 255, 255, 0.01);
     }
 
     &.leave {
-      background-color: rgba(255, 255, 255, 0);
+      animation: rmkLayerMaskLightLeave @layer-mask-animation-duration @layer-mask-animation-effect 0s 1 normal forwards;
     }
   }
 }

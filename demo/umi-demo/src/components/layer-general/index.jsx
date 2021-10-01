@@ -5,7 +5,6 @@ import LayerMask from '../layer-mask';
 import { requestAnimationFrame } from '../../utils/animation-frame';
 import noop from '../../utils/noop';
 import { LAYER_STATUS } from '../../utils/constants';
-import './index.less';
 
 const prefix = 'rmk-LayerGeneral';
 
