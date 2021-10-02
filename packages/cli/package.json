@@ -1,0 +1,41 @@
+{
+  "name": "@react-mobile-kit/cli",
+  "description": "command line tools for react-mobile-kit",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "bin": {
+    "react-vant-cli": "./bin.js"
+  },
+  "scripts": {
+    "dev": "",
+    "build": "",
+    "test": ""
+  },
+  "author": {
+    "name": "ccMicheal",
+    "email": "3247482424@qq.com"
+  },
+  "files": [
+    "lib",
+    "site",
+    "template",
+    "bin.js"
+  ],
+  "release-it": {
+    "git": {
+      "tag": false,
+      "commitMessage": "release: @react-mobile-kit/cli ${version}",
+      "addUntrackedFiles": true,
+      "requireCleanWorkingDir": false
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peterlevel1/react-mobile-kit.git"
+  },
+  "license": "MIT"
+}
