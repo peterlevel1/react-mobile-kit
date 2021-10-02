@@ -1,10 +1,10 @@
 {
   "name": "@react-mobile-kit/cli",
   "description": "command line tools for react-mobile-kit",
-  "version": "0.0.1",
-  "main": "lib/index.js",
+  "version": "0.0.2",
+  "main": "./lib/index.js",
   "bin": {
-    "react-vant-cli": "./bin.js"
+    "rmk-cli": "./bin/rmk-cli.js"
   },
   "scripts": {
     "dev": "",
@@ -12,13 +12,12 @@
     "test": ""
   },
   "author": {
-    "name": "ccMicheal",
+    "name": "jsercc",
     "email": "3247482424@qq.com"
   },
   "files": [
     "lib",
     "site",
-    "template",
     "bin.js"
   ],
   "release-it": {
