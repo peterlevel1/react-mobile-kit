@@ -1,8 +1,7 @@
 import '@testing-library/jest-dom/extend-expect';
-import { render, RenderOptions, RenderResult } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { toHaveNoViolations, axe } from 'jest-axe';
 import * as React from 'react';
-import { RunOptions } from 'axe-core';
 
 expect.extend(toHaveNoViolations);
 
@@ -49,7 +48,7 @@ export {
 export { default as userEvent } from '@testing-library/user-event';
 
 // override render method
-export { customRender }
+// export { customRender }
 
 /**
  * Validates against common a11y mistakes.
@@ -74,10 +73,8 @@ export { customRender }
  *
  * @see https://github.com/nickcolley/jest-axe#testing-react-with-react-testing-library
  */
-export const testA11y = async (
-  ui,
-  { axeOptions, ...options }
-) => {
+export const testA11y = async (ui, opts = {}) => {
+  const { axeOptions, ...options } = opts;
   const container = React.isValidElement(ui)
     ? customRender(ui, options).container
     : ui;

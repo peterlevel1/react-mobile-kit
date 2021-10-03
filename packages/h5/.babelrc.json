@@ -13,5 +13,10 @@
     "babel-plugin-transform-async-to-promises",
     "./babel-transform-less-to-css"
   ],
-  "ignore": ["**/demos"]
+  "ignore": ["**/demos"],
+  "env": {
+    "test": {
+      "plugins": ["@babel/plugin-transform-modules-commonjs"]
+    }
+  }
 }
