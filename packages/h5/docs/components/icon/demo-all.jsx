@@ -1,22 +1,21 @@
-import React, { ComponentType } from 'react'
-import * as Icons from 'antd-mobile-icons'
-import { Grid } from 'antd-mobile'
-import styles from './demo-all.less'
+import React from 'react';
+import * as Icons from 'antd-mobile-icons';
+import { Grid } from '@react-mobile-kit/h5';
+import styles from './demo-all.less';
 
-const items: {
-  name: string
-  component: ComponentType
-}[] = []
+const items = []
 
 for (let key in Icons) {
-  const component = (Icons as any)[key] as ComponentType
+  const component = Icons[key];
+
   if (typeof component !== 'function') {
-    continue
-  }
+    continue;
+  };
+
   items.push({
     name: key,
     component,
-  })
+  });
 }
 
 export default () => {

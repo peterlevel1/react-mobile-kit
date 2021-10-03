@@ -1,15 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-type PropItem = {
-  description?: string
-  type?: string
-  default?: string
-  required?: boolean
-}
-
-type PropRecord = Record<string, PropItem>
-
-export function createPropsTable(propRecord: PropRecord) {
+export function createPropsTable(propRecord) {
   return function PropsTable() {
     return (
       <div className='markdown'>

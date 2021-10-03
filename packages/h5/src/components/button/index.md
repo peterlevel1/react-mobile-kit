@@ -1,6 +1,8 @@
 # Button 按钮
 
-<code src="./demos/index.tsx"></code>
+好看的按钮，哈哈
+
+<code src="./demos/index.jsx"></code>
 
 ## 属性
 

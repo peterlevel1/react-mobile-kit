@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Space } from 'antd-mobile'
+import { Button, Space } from '@react-mobile-kit/h5'
 import { DemoBlock } from 'demos'
 import { SearchOutline } from 'antd-mobile-icons'
 

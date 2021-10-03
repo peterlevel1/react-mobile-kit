@@ -16,6 +16,6 @@ import { AntOutline } from 'antd-mobile-icons'
 
 由于主流的构建工具会自动做 Tree-Shaking，所以最终被打包进来的只有你用到的那些图标，不必担心包体积问题。
 
-<code src="./demo-single.tsx"></code>
+<code src="./demo-single.jsx"></code>
 
-<code src="./demo-all.tsx"></code>
+<code src="./demo-all.jsx"></code>

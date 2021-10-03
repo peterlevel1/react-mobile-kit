@@ -34,7 +34,7 @@
  */
 
 import React from 'react'
-import { Button } from 'antd-mobile'
+import { Button } from '@react-mobile-kit/h5'
 
 export default () => {
   return (

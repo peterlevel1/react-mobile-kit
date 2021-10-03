@@ -1,7 +1,7 @@
 import React from 'react'
 import { AntOutline, ArrowDownCircleOutline } from 'antd-mobile-icons'
 import { DemoBlock } from 'demos'
-import { Space } from 'antd-mobile'
+import { Space } from '@react-mobile-kit/h5'
 
 export default () => {
   return (
