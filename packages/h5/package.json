@@ -3,9 +3,9 @@
   "version": "0.0.4",
   "scripts": {
     "start": "dumi dev",
-    "build": "gulp",
+    "build": "gulp --unhandled-rejections=strict",
     "build-doc": "dumi build",
-    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "lint": "eslint \"src/**/*.{js,jsx}\"",
     "postinstall": "husky install",
     "test": "jest --maxWorkers=50%",
     "test:coverage": "jest --maxWorkers=50% --coverage",
@@ -50,6 +50,7 @@
     "babel-loader": "^8.2.2",
     "babel-plugin-import": "^1.13.3",
     "babel-plugin-transform-async-to-promises": "^0.8.15",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
     "css-loader": "^6.3.0",
     "del": "^6.0.0",
     "dumi": "^1.1.29",
@@ -97,8 +98,6 @@
   },
   "main": "./cjs/index.js",
   "module": "./es/index.js",
-  "types": "./es/index.d.ts",
-  "typings": "./es/index.d.ts",
   "unpkg": "./umd/react-mobile-kit.js",
   "GravityCDN": "./umd/react-mobile-kit.js",
   "sideEffects": [

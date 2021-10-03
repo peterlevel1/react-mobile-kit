@@ -1,19 +1,15 @@
-const gulp = require('gulp')
-const less = require('gulp-less')
-const path = require('path')
-const postcss = require('gulp-postcss')
-const babel = require('gulp-babel')
-const ts = require('gulp-typescript')
-const del = require('del')
-const webpackStream = require('webpack-stream')
-const webpack = require('webpack')
-const through = require('through2')
-const tsconfig = require('./tsconfig.json')
-
-const pxMultiplePlugin = require('postcss-px-multiple')({ times: 2 })
+const gulp = require('gulp');
+const less = require('gulp-less');
+const path = require('path');
+const postcss = require('gulp-postcss');
+const babel = require('gulp-babel');
+const del = require('del');
+const webpackStream = require('webpack-stream');
+const webpack = require('webpack');
+const through = require('through2');
 
 function clean() {
-  return del('./lib/**')
+  return del('./lib/**');
 }
 
 function buildStyle() {
@@ -29,7 +25,7 @@ function buildStyle() {
       })
     )
     .pipe(gulp.dest('./lib/es'))
-    .pipe(gulp.dest('./lib/cjs'))
+    .pipe(gulp.dest('./lib/cjs'));
 }
 
 function copyAssets() {
@@ -37,7 +33,7 @@ function copyAssets() {
     .src('./src/assets/**/*')
     .pipe(gulp.dest('lib/assets'))
     .pipe(gulp.dest('lib/es/assets'))
-    .pipe(gulp.dest('lib/cjs/assets'))
+    .pipe(gulp.dest('lib/cjs/assets'));
 }
 
 function buildCJS() {
@@ -48,37 +44,16 @@ function buildCJS() {
         'plugins': ['@babel/plugin-transform-modules-commonjs'],
       })
     )
-    .pipe(gulp.dest('lib/cjs/'))
+    .pipe(gulp.dest('lib/cjs/'));
 }
 
 function buildES() {
-  const tsProject = ts({
-    ...tsconfig.compilerOptions,
-    module: 'ESNext',
-  })
   return gulp
-    .src(['src/**/*.{ts,tsx}'], {
+    .src(['src/**/*.{js,jsx}'], {
       ignore: ['**/demos/**/*', '**/tests/**/*'],
     })
-    .pipe(tsProject)
     .pipe(babel())
-    .pipe(gulp.dest('lib/es/'))
-}
-
-function buildDeclaration() {
-  const tsProject = ts({
-    ...tsconfig.compilerOptions,
-    module: 'ESNext',
-    declaration: true,
-    emitDeclarationOnly: true,
-  })
-  return gulp
-    .src(['src/**/*.{ts,tsx}'], {
-      ignore: ['**/demos/**/*', '**/tests/**/*'],
-    })
-    .pipe(tsProject)
-    .pipe(gulp.dest('lib/es/'))
-    .pipe(gulp.dest('lib/cjs/'))
+    .pipe(gulp.dest('lib/es/'));
 }
 
 function umdWebpack() {
@@ -122,11 +97,11 @@ function umdWebpack() {
         webpack
       )
     )
-    .pipe(gulp.dest('lib/umd/'))
+    .pipe(gulp.dest('lib/umd/'));
 }
 
 function copyMetaFiles() {
-  return gulp.src(['./README.md', './LICENSE.txt']).pipe(gulp.dest('./lib/'))
+  return gulp.src(['./README.md', './LICENSE.txt']).pipe(gulp.dest('./lib/'));
 }
 
 function generatePackageJSON() {
@@ -144,40 +119,17 @@ function generatePackageJSON() {
         cb(null, file)
       })
     )
-    .pipe(gulp.dest('./lib/'))
+    .pipe(gulp.dest('./lib/'));
 }
 
-function create2xFolder() {
-  return gulp
-    .src('./lib/**', {
-      base: './lib/',
-      ignore: ['./lib/2x/demos/**/*'],
-    })
-    .pipe(gulp.dest('./lib/2x/'))
-}
-
-function build2xCSS() {
-  return gulp
-    .src('./lib/2x/**/*.css', {
-      base: './lib/2x/',
-    })
-    .pipe(postcss([pxMultiplePlugin]))
-    .pipe(
-      gulp.dest('./lib/2x', {
-        overwrite: true,
-      })
-    )
-}
-
-exports.umdWebpack = umdWebpack
+exports.umdWebpack = umdWebpack;
 
 exports.default = gulp.series(
   clean,
   buildES,
-  gulp.parallel(buildCJS, buildDeclaration, buildStyle),
+  gulp.parallel(buildCJS, buildStyle),
   copyAssets,
   copyMetaFiles,
   generatePackageJSON,
-  gulp.series(create2xFolder, build2xCSS),
   gulp.parallel(umdWebpack)
-)
+);
