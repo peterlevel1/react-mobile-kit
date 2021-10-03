@@ -1,4 +1,4 @@
-{
+module.exports = {
   "presets": [
     [
       "@babel/preset-env",
@@ -16,6 +16,8 @@
   "ignore": ["**/demos"],
   "env": {
     "test": {
+      // bugfix: jest cannot use es6 import syntax
+      // https://stackoverflow.com/questions/35756479/does-jest-support-es6-import-export/52224329
       "plugins": ["@babel/plugin-transform-modules-commonjs"]
     }
   }
