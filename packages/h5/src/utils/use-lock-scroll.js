@@ -5,7 +5,7 @@ import { supportsPassive } from './supports-passive';
 
 let totalLockCount = 0;
 
-const BODY_LOCK_CLASS = 'adm-overflow-hidden';
+const BODY_LOCK_CLASS = 'rmk-overflow-hidden';
 
 // 移植自vant：https://github.com/youzan/vant/blob/HEAD/src/composables/use-lock-scroll.ts
 export function useLockScroll(rootRef, shouldLock) {

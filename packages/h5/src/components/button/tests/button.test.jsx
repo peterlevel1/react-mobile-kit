@@ -2,7 +2,7 @@ import React from 'react'
 import { render, testA11y, screen, fireEvent } from 'testing'
 import Button from '..'
 
-const classPrefix = `adm-button`
+const classPrefix = `rmk-button`
 
 it('passes a11y test', async () => {
   await testA11y(<Button>test</Button>)

@@ -2,7 +2,7 @@ import React from 'react'
 import { withDefaultProps } from '../../utils/with-default-props';
 import { withNativeProps } from '../../utils/native-props';
 
-const classPrefix = `adm-grid`;
+const classPrefix = `rmk-grid`;
 const defaultProps = {
   gap: 0,
 };

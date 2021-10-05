@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { withNativeProps } from '../../utils/native-props';
 import { withDefaultProps } from '../../utils/with-default-props';
 
-const classPrefix = `adm-space`;
+const classPrefix = `rmk-space`;
 
 export const Space = withDefaultProps({ direction: 'horizontal' })(props => {
     const { size, direction } = props;

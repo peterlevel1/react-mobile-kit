@@ -2,12 +2,12 @@ import React, { memo } from 'react';
 import { mergeProps } from '../../utils/with-default-props';
 import { withNativeProps } from '../../utils/native-props';
 
-const classPrefix = 'adm-loading';
+const classPrefix = 'rmk-loading';
 
 const colorRecord = {
-  default: 'var(--adm-color-weak)',
-  primary: 'var(--adm-color-primary)',
-  white: 'var(--adm-color-white)',
+  default: 'var(--rmk-color-weak)',
+  primary: 'var(--rmk-color-primary)',
+  white: 'var(--rmk-color-white)',
 };
 
 const defaultProps = {

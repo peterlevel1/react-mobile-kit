@@ -4,7 +4,7 @@ let tester = null;
 
 if (canUseDom) {
   tester = document.createElement('div');
-  tester.className = 'adm-one-px-tester';
+  tester.className = 'rmk-one-px-tester';
   document.body.appendChild(tester);
 }
 

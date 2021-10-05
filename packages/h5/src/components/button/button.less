@@ -1,14 +1,14 @@
-@class-prefix-button: ~'adm-button';
+@class-prefix-button: ~'rmk-button';
 
 .@{class-prefix-button} {
-  --color: var(--adm-color-white);
+  --color: var(--rmk-color-white);
 
-  --text-color: var(--adm-color-text);
-  --background-color: var(--adm-color-white);
+  --text-color: var(--rmk-color-text);
+  --background-color: var(--rmk-color-white);
   --border-radius: 4px;
   --border-width: 1px;
   --border-style: solid;
-  --border-color: var(--adm-border-color);
+  --border-color: var(--rmk-border-color);
 
   color: var(--text-color);
   background-color: var(--background-color);
@@ -51,7 +51,7 @@
   &-default {
     &.@{class-prefix-button}-fill-outline {
       --background-color: transparent;
-      --border-color: var(--adm-color-text);
+      --border-color: var(--rmk-color-text);
     }
     &.@{class-prefix-button}-fill-none {
       --background-color: transparent;
@@ -59,7 +59,7 @@
     }
   }
   &:not(&-default) {
-    --text-color: var(--adm-color-white);
+    --text-color: var(--rmk-color-white);
     --background-color: var(--color);
     --border-color: var(--color);
     &.@{class-prefix-button}-fill-outline {
@@ -74,16 +74,16 @@
   }
 
   &-primary {
-    --color: var(--adm-color-primary);
+    --color: var(--rmk-color-primary);
   }
   &-success {
-    --color: var(--adm-color-success);
+    --color: var(--rmk-color-success);
   }
   &-danger {
-    --color: var(--adm-color-danger);
+    --color: var(--rmk-color-danger);
   }
   &-warning {
-    --color: var(--adm-color-warning);
+    --color: var(--rmk-color-warning);
   }
 
   &-block {
@@ -119,7 +119,7 @@
     height: 1.4em;
     align-items: center;
     justify-content: center;
-    > .adm-loading {
+    > .rmk-loading {
       opacity: 0.6;
     }
   }

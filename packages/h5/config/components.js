@@ -4,6 +4,7 @@ export const components = {
     '/components/space',
     '/components/grid',
     '/components/loading',
-    '/components/config-provider'
+    '/components/config-provider',
+    '/components/layer'
   ],
 }

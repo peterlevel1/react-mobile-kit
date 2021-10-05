@@ -22,9 +22,9 @@
 
 | 属性               | 说明     | 默认值                    |
 | ------------------ | -------- | ------------------------- |
-| --text-color       | 文字颜色 | `var(--adm-color-text)`   |
-| --background-color | 背景颜色 | `var(--adm-color-white)`  |
+| --text-color       | 文字颜色 | `var(--rmk-color-text)`   |
+| --background-color | 背景颜色 | `var(--rmk-color-white)`  |
 | --border-radius    | 圆角大小 | `4px`                     |
 | --border-width     | 边框宽度 | `1px`                     |
 | --border-style     | 边框样式 | `solid`                   |
-| --border-color     | 边框颜色 | `var(--adm-border-color)` |
+| --border-color     | 边框颜色 | `var(--rmk-border-color)` |

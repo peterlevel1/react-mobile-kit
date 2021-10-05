@@ -5,7 +5,7 @@ import { withDefaultProps } from '../../utils/with-default-props'
 import { withNativeProps } from '../../utils/native-props'
 import { useConfig } from '../config-provider'
 
-const classPrefix = `adm-error-block`;
+const classPrefix = `rmk-error-block`;
 
 const defaultProps = {
   status: 'default',

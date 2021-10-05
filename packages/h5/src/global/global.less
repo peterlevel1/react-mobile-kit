@@ -5,9 +5,9 @@
 }
 
 body {
-  color: var(--adm-color-text);
-  font-size: var(--adm-font-size-main);
-  font-family: var(--adm-font-family);
+  color: var(--rmk-color-text);
+  font-size: var(--rmk-font-size-main);
+  font-family: var(--rmk-font-family);
 }
 
 * {
@@ -20,14 +20,14 @@ button {
 }
 
 a {
-  color: var(--adm-color-primary);
+  color: var(--rmk-color-primary);
   transition: opacity ease-in-out 0.2s;
   &:active {
     opacity: 0.8;
   }
 }
 
-.adm-plain-anchor {
+.rmk-plain-anchor {
   color: unset;
   transition: none;
   &:active {
@@ -35,11 +35,11 @@ a {
   }
 }
 
-body.adm-overflow-hidden {
+body.rmk-overflow-hidden {
   overflow: hidden !important;
 }
 
-div.adm-one-px-tester {
+div.rmk-one-px-tester {
   height: 1px;
   width: 0;
   position: fixed;

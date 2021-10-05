@@ -4,7 +4,7 @@ import Loading from '../loading'
 import { mergeProps } from '../../utils/with-default-props'
 import { withNativeProps } from '../../utils/native-props'
 
-const classPrefix = `adm-button`
+const classPrefix = `rmk-button`
 
 const defaultProps = {
   color: 'default',
