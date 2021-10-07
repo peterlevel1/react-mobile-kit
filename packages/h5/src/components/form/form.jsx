@@ -1,7 +1,6 @@
 import React, { Children, cloneElement, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { FormController } from './form-controller';
-import { noop } from '../../utils/noop';
 import { useDummyUpdate } from '../../utils/use-dummy-update';
 
 export function Form({ controller, name, mode, initialValues, onUpdate, onSubmit, children }) {
