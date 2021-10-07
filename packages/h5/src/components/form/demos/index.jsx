@@ -92,6 +92,7 @@ const BasicSubmit = ({ controller }) => {
   return (
     <Button
       block
+      color='primary'
       type='submit'
       disabled={!!retValidate.message}
     >
@@ -104,7 +105,6 @@ const BasicReset = ({ controller }) => {
   return (
     <Button
       block
-      color='primary'
       onClick={() => {
         controller.resetValues();
       }}
