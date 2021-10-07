@@ -27,7 +27,7 @@ export class FormController {
       name,
       setValue,
       setMessage,
-      onChange: (ev, targetKey = 'value') => {
+      onChange(ev, targetKey = 'value') {
         if (!onChange) {
           if (ev?.target && ev.target[targetKey] != null) {
             setValue(ev.target[targetKey]);
