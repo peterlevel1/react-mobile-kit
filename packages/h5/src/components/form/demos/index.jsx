@@ -11,8 +11,8 @@ export default () => {
         <Form
           controller={controller}
           initialValues={{
-            name: 'peter',
-            age: '16'
+            name: '',
+            age: ''
           }}
           onUpdate={(name, value, preValue) => {
             console.log('update form: ', name, value, preValue);
@@ -26,7 +26,7 @@ export default () => {
             name='name'
             validate={(value) => {
               if (/松哥/.test(value)) {
-                return 'you should not expose your name: 松哥'
+                return 'you should not let others know you are: 松哥'
               }
             }}
           >
@@ -36,15 +36,35 @@ export default () => {
           <Form.Item
             name='age'
             onChange={(ev, setValue) => {
-              if (/(0?\.)?\d+$/.test(ev.target.value)) {
+              if (ev.target.value === '') {
                 setValue(ev.target.value);
+                return;
+              }
+
+              const value = parseInt(ev.target.value);
+
+              if (isNaN(value)) {
+                return;
+              }
+
+              setValue(value);
+            }}
+            validate={(value) => {
+              if (value == '') {
+                return;
+              }
+
+              if (value < 1 || value > 100) {
+                return '年龄不能为0, 也不能超过100岁';
               }
             }}
           >
-            <input placeholder='please write your age' />
+            <BasicInput placeholder='please write your age' />
           </Form.Item>
           <div style={{ height: 24 }} />
           <BasicSubmit />
+          <div style={{ height: 24 }} />
+          <BasicReset />
         </Form>
       </DemoBlock>
     </>
@@ -76,6 +96,20 @@ const BasicSubmit = ({ controller }) => {
       disabled={!!retValidate.message}
     >
       提交
+    </Button>
+  );
+}
+
+const BasicReset = ({ controller }) => {
+  return (
+    <Button
+      block
+      color='primary'
+      onClick={() => {
+        controller.resetValues();
+      }}
+    >
+      重置表单的值
     </Button>
   );
 }
