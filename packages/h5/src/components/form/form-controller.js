@@ -1,3 +1,4 @@
+import isEqual from 'lodash/isEqual'
 import { requestAnimationFrame } from '../../utils/animation-frame';
 
 const controllerOptions = {
@@ -22,7 +23,7 @@ function handleTouchedModeUpdate(name, value) {
   const item = this.getItem(name);
 
   if (!item.valueInited) {
-    if (value !== this.getInitialValue(name)) {
+    if (!isEqual(value, this.getInitialValue(name))) {
       if (item.message) {
         item.setMessage(item.message);
       }
