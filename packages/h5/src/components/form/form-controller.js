@@ -69,15 +69,19 @@ export class FormController {
           return;
         }
         const preValue = controller.getValue(this.name);
-        const message = validate(val, preValue, this, controller) || '';
+        this.message = validate(val, preValue, this, controller) || '';
         if (!controller.options.messageAfterValueInited || this.valueInited) {
           requestAnimationFrame(() => {
-            this.setMessage(this.message = message);
+            this.setMessage(this.message);
           });
         }
-        return message;
+        return this.message;
       },
     };
+  }
+
+  hasError() {
+    return Object.keys(this.itemMap).some(name => !!this.getItem(name).message);
   }
 
   onValueChanged(name, value) {

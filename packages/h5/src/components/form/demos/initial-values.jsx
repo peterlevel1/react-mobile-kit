@@ -14,16 +14,26 @@ export default () => {
 
   return (
     <>
-      <DemoBlock title='基本'>
+      <DemoBlock title='表单初始化'>
         <Form
           controller={controller}
           initialValues={initialValues}
           onUpdate={(name, value, preValue, item) => {
             if (!controller.isValuesInited() && !item.valueInited && value !== initialValues[name]) {
-              controller.setAllValuesInited();
+              if (item.message) {
+                item.setMessage(item.message);
+              }
+              item.valueInited = true;
             }
-            console.log('update form: ', name, value, preValue, controller.isValuesInited());
-            return controller.isValuesInited();
+
+            const inited = controller.isValuesInited();
+            console.log('update form: ', name, value, preValue, inited);
+
+            if (inited) {
+              controller.validate();
+            }
+
+            return inited;
           }}
           onSubmit={(values) => {
             alert(JSON.stringify(values));
@@ -93,12 +103,14 @@ const BasicInput = ({ message, ...restProps }) => {
 }
 
 const BasicSubmit = ({ controller }) => {
+  console.log('BasicSubmit - render');
+
   return (
     <Button
       block
       color='primary'
       type='submit'
-      disabled={!controller.isValuesInited() || !!controller.validate().message}
+      disabled={!controller.isValuesInited() || controller.hasError()}
     >
       提交
     </Button>
