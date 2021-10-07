@@ -1,14 +1,28 @@
 import { requestAnimationFrame } from '../../utils/animation-frame';
 
+const controllerOptions = {
+  messageAfterValueInited: false,
+  valueInitedManually: false
+};
+
 export class FormController {
-  constructor() {
+  constructor(options = controllerOptions) {
+    this.options = options;
     this.itemMap = {};
     this.values = {};
     this.initialValues = null;
   }
 
+  setOption(name, value) {
+    this.options[name] = value;
+  }
+
   resetValues() {
-    Object.keys(this.itemMap).forEach(name => this.getItem(name).setValue(this.getInitialValue(name)));
+    Object.keys(this.itemMap).forEach(name => {
+      const item = this.getItem(name);
+      item.valueInited = false;
+      item.setValue(this.getInitialValue(name));
+    });
   }
 
   setUpdater(cb) {
@@ -19,12 +33,23 @@ export class FormController {
     this.updateCb = updateCb;
   }
 
+  isValuesInited() {
+    return Object.keys(this.itemMap).every(name => this.getItem(name).valueInited);
+  }
+
+  setAllValuesInited() {
+    Object.keys(this.itemMap).forEach(name => {
+      this.getItem(name).valueInited = true;
+    });
+  }
+
   // item: { name, setValue, setMessage, validate, onChange }
   setItem(name, { setValue, setMessage, onChange, validate }) {
     const controller = this;
 
     this.itemMap[name] = {
       name,
+      valueInited: false,
       setValue,
       setMessage,
       onChange(ev, targetKey = 'value') {
@@ -45,18 +70,23 @@ export class FormController {
         }
         const preValue = controller.getValue(this.name);
         const message = validate(val, preValue, this, controller) || '';
-        requestAnimationFrame(() => {
-          this.setMessage(this.message = message);
-        });
+        if (!controller.options.messageAfterValueInited || this.valueInited) {
+          requestAnimationFrame(() => {
+            this.setMessage(this.message = message);
+          });
+        }
         return message;
       },
     };
   }
 
-  onValueChange(name, value) {
+  onValueChanged(name, value) {
     const item = this.getItem(name);
     item.validate(value);
     this.setValue(name, value);
+    if (!this.options.valueInitedManually) {
+      item.valueInited = true;
+    }
   }
 
   getItem(name) {
@@ -80,7 +110,7 @@ export class FormController {
     this.values[name] = value;
 
     if (this.updateCb) {
-      const ret = this.updateCb(name, value, prevVal);
+      const ret = this.updateCb(name, value, prevVal, this.getItem(name));
       if (ret === true && this.updater) {
         this.updater();
       }

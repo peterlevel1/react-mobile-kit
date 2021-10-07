@@ -2,11 +2,11 @@ import React, { Children, cloneElement, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { FormController } from './form-controller';
 import { noop } from '../../utils/noop';
+import { useDummyUpdate } from '../../utils/use-dummy-update';
 
 export function Form({ controller, onUpdate, initialValues, onSubmit, children }) {
   const [ controller2 ] = useState(() => controller ?? new FormController());
-  const [ , setN ] = useState(0);
-  const update = useCallback(() => setN((n) => n + 1), []);
+  const update = useDummyUpdate();
 
   controller2.setUpdater(update);
 

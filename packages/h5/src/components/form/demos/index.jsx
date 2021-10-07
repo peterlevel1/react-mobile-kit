@@ -1,22 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Form, Button } from '@react-mobile-kit/h5';
 import { DemoBlock } from 'demos';
 
 export default () => {
-  const [controller] = React.useState(() => new Form.Controller());
+  const [controller] = React.useState(() => new Form.Controller({
+    messageAfterValueInited: true,
+    valueInitedManually: true
+  }));
+  const [initialValues] = useState(() => ({
+    name: '',
+    age: '111'
+  }))
 
   return (
     <>
       <DemoBlock title='基本'>
         <Form
           controller={controller}
-          initialValues={{
-            name: '',
-            age: ''
-          }}
-          onUpdate={(name, value, preValue) => {
-            console.log('update form: ', name, value, preValue);
-            return true;
+          initialValues={initialValues}
+          onUpdate={(name, value, preValue, item) => {
+            if (!controller.isValuesInited() && !item.valueInited && value !== initialValues[name]) {
+              controller.setAllValuesInited();
+            }
+            console.log('update form: ', name, value, preValue, controller.isValuesInited());
+            return controller.isValuesInited();
           }}
           onSubmit={(values) => {
             alert(JSON.stringify(values));
@@ -86,15 +93,12 @@ const BasicInput = ({ message, ...restProps }) => {
 }
 
 const BasicSubmit = ({ controller }) => {
-  const retValidate = controller.validate();
-  console.log('retValidate', retValidate);
-
   return (
     <Button
       block
       color='primary'
       type='submit'
-      disabled={!!retValidate.message}
+      disabled={!controller.isValuesInited() || !!controller.validate().message}
     >
       提交
     </Button>
