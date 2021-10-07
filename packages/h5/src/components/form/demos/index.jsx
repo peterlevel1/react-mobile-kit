@@ -25,8 +25,8 @@ export default () => {
           <Form.Item
             name='name'
             validate={(value) => {
-              if (/松哥/.test(value)) {
-                return 'you should not let others know you are: 松哥'
+              if (/葱哥/.test(value)) {
+                return 'you should not let others know you are: 葱哥'
               }
             }}
           >
