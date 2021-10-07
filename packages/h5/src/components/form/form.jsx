@@ -4,8 +4,8 @@ import { FormController } from './form-controller';
 import { noop } from '../../utils/noop';
 
 export function Form({ controller, onUpdate, initialValues, onSubmit, children }) {
-  const [controller2] = useState(() => controller ?? new FormController());
-  const [, setN] = useState(0);
+  const [ controller2 ] = useState(() => controller ?? new FormController());
+  const [ , setN ] = useState(0);
   const update = useCallback(() => setN((n) => n + 1), []);
 
   controller2.setUpdater(update);
