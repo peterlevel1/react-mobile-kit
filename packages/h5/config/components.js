@@ -5,6 +5,7 @@ export const components = {
     '/components/grid',
     '/components/loading',
     '/components/config-provider',
-    '/components/layer'
+    '/components/layer',
+    '/components/form',
   ],
 }

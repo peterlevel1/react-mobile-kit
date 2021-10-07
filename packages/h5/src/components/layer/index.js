@@ -5,9 +5,11 @@ import { LayerGeneral } from './layer-general';
 import { LayerMask } from './layer-mask';
 import { LAYER_STATUS } from './constants';
 
-Layer.LayerController = LayerController;
-Layer.LayerGeneral = LayerGeneral;
-Layer.LayerMask = LayerMask;
-Layer.LAYER_STATUS = LAYER_STATUS;
+Object.assign(Layer, {
+  Controller: LayerController,
+  General: LayerGeneral,
+  Mask: LayerMask,
+  STATUS: LAYER_STATUS
+});
 
-export default Object.freeze(Layer);
+export default Layer;

@@ -17,7 +17,7 @@ export function Layer({ controllerId, active, component, ...restProps }) {
   controller.sync = sync;
 
   useEffect(() => {
-    if (!controller) {
+    if (!controller || controller.destroyed) {
       return;
     }
 
