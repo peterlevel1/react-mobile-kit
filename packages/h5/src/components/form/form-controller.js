@@ -44,11 +44,11 @@ export class FormController {
           return;
         }
         const preValue = controller.getValue(this.name);
-        this.message = validate(val, preValue, this, controller) || '';
+        const message = validate(val, preValue, this, controller) || '';
         requestAnimationFrame(() => {
-          this.setMessage(this.message);
+          this.setMessage(this.message = message);
         });
-        return this.message;
+        return message;
       },
     };
   }
