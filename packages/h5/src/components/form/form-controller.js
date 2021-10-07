@@ -1,3 +1,5 @@
+import { requestAnimationFrame } from '../../utils/animation-frame';
+
 export class FormController {
   constructor() {
     this.itemMap = {};
@@ -9,12 +11,18 @@ export class FormController {
     Object.keys(this.itemMap).forEach(name => this.getItem(name).setValue(this.getInitialValue(name)));
   }
 
+  setUpdater(cb) {
+    this.updater = cb;
+  }
+
   setUpdateCb(updateCb) {
     this.updateCb = updateCb;
   }
 
   // item: { name, setValue, setMessage, validate, onChange }
   setItem(name, { setValue, setMessage, onChange, validate }) {
+    const controller = this;
+
     this.itemMap[name] = {
       name,
       setValue,
@@ -36,17 +44,18 @@ export class FormController {
           return;
         }
         const preValue = controller.getValue(this.name);
-        this.message = validate(val, preValue, this, controller);
-        if (this.message) {
-          setMessage(this.message);
-        }
+        this.message = validate(val, preValue, this, controller) || '';
+        requestAnimationFrame(() => {
+          this.setMessage(this.message);
+        });
         return this.message;
       },
     };
   }
 
   onValueChange(name, value) {
-    this.getItem(name).validate(value);
+    const item = this.getItem(name);
+    item.validate(value);
     this.setValue(name, value);
   }
 
@@ -71,7 +80,10 @@ export class FormController {
     this.values[name] = value;
 
     if (this.updateCb) {
-      this.updateCb(name, value, prevVal);
+      const ret = this.updateCb(name, value, prevVal);
+      if (ret === true && this.updater) {
+        this.updater();
+      }
     }
   }
 
