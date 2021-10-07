@@ -5,6 +5,7 @@ const controllerOptions = {
   valueInitedManually: false
 };
 
+// TODO: messageManually, 手动设置message
 export class FormController {
   constructor(options = controllerOptions) {
     this.options = options;
