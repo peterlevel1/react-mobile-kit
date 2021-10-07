@@ -10,7 +10,7 @@ export default () => {
           name='basic'
           initialValues={{
             name: '',
-            age: '11'
+            age: '8'
           }}
           onUpdate={(name, value, preValue) => {
             console.log('basic - update form: ', name, value, preValue);
@@ -28,7 +28,7 @@ export default () => {
               }
             }}
           >
-            <BasicInput placeholder='please write your name' />
+            <BasicInput placeholder='please write 帅哥' />
           </Form.Item>
           <div style={{ height: 24 }} />
           <Form.Item

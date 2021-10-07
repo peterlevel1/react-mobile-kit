@@ -5,7 +5,7 @@ import { DemoBlock } from 'demos';
 export default () => {
   const [initialValues] = useState(() => ({
     name: '',
-    age: '111'
+    age: '9000'
   }))
 
   return (
@@ -27,7 +27,7 @@ export default () => {
               }
             }}
           >
-            <BasicInput placeholder='please write your name' />
+            <BasicInput placeholder='please write 帅哥' />
           </Form.Item>
           <div style={{ height: 24 }} />
           <Form.Item
