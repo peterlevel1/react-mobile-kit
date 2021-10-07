@@ -4,9 +4,9 @@
 
 <code src="./demos/basic.jsx"></code>
 
-## 表单初始化
+## 表单初始化-touched
 
-<code src="./demos/initial-values.jsx"></code>
+<code src="./demos/touched.jsx"></code>
 
 # API
 

@@ -3,10 +3,6 @@ import { Form, Button } from '@react-mobile-kit/h5';
 import { DemoBlock } from 'demos';
 
 export default () => {
-  const [controller] = React.useState(() => new Form.Controller({
-    messageAfterValueInited: true,
-    valueInitedManually: true
-  }));
   const [initialValues] = useState(() => ({
     name: '',
     age: '111'
@@ -14,27 +10,11 @@ export default () => {
 
   return (
     <>
-      <DemoBlock title='表单初始化'>
+      <DemoBlock title='表单初始化-touched'>
         <Form
-          controller={controller}
+          name='touchedForm'
+          mode='touched'
           initialValues={initialValues}
-          onUpdate={(name, value, preValue, item) => {
-            if (!controller.isValuesInited() && !item.valueInited && value !== initialValues[name]) {
-              if (item.message) {
-                item.setMessage(item.message);
-              }
-              item.valueInited = true;
-            }
-
-            const inited = controller.isValuesInited();
-            console.log('update form: ', name, value, preValue, inited);
-
-            if (inited) {
-              controller.validate();
-            }
-
-            return inited;
-          }}
           onSubmit={(values) => {
             alert(JSON.stringify(values));
           }}
@@ -42,8 +22,8 @@ export default () => {
           <Form.Item
             name='name'
             validate={(value) => {
-              if (/葱哥/.test(value)) {
-                return 'you should not let others know you are: 葱哥'
+              if (/帅哥/.test(value)) {
+                return 'you should not let others know you are: 帅哥'
               }
             }}
           >
@@ -64,7 +44,7 @@ export default () => {
                 return;
               }
 
-              setValue(value);
+              setValue(`${value}`);
             }}
             validate={(value) => {
               if (value == '') {
@@ -103,14 +83,12 @@ const BasicInput = ({ message, ...restProps }) => {
 }
 
 const BasicSubmit = ({ controller }) => {
-  console.log('BasicSubmit - render');
-
   return (
     <Button
       block
       color='primary'
       type='submit'
-      disabled={!controller.isValuesInited() || controller.hasError()}
+      disabled={controller.hasError()}
     >
       提交
     </Button>

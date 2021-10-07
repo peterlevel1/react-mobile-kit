@@ -1,17 +1,69 @@
 import { requestAnimationFrame } from '../../utils/animation-frame';
 
 const controllerOptions = {
+  // 表单名称
+  name: '',
+  // '' | touched
+  // touched 模式: 初始设置的值，不予验证
+  mode: '',
+  // valueInited 为 true 时，设置 message
   messageAfterValueInited: false,
-  valueInitedManually: false
+  // 手动设置 valueInited
+  valueInitedManually: false,
+  // 手动设置 message
+  messageManually: false,
+  // 初始化的值
+  initialValues: null,
+  // 当字段变动时
+  onUpdate: null,
 };
 
-// TODO: messageManually, 手动设置message
+function handleTouchedModeUpdate(name, value) {
+  const item = this.getItem(name);
+
+  if (!item.valueInited) {
+    if (value !== this.getInitialValue(name)) {
+      if (item.message) {
+        item.setMessage(item.message);
+      }
+      item.valueInited = true;
+    } else {
+      item.setMessage('');
+    }
+  }
+
+  return this.isValuesInited();
+}
+
 export class FormController {
   constructor(options = controllerOptions) {
     this.options = options;
     this.itemMap = {};
     this.values = {};
     this.initialValues = null;
+    this.updateCbs = [];
+
+    this.init();
+  }
+
+  init() {
+    if (this.options.name) {
+      this.name = this.options.name;
+    }
+
+    if (this.options.mode === 'touched') {
+      this.setOption('messageAfterValueInited', true);
+      this.setOption('valueInitedManually', true);
+      this.addUpdateCb(handleTouchedModeUpdate);
+    }
+
+    if (this.options.onUpdate) {
+      this.addUpdateCb(this.options.onUpdate);
+    }
+
+    if (this.options.initialValues) {
+      this.setInitialValues(this.options.initialValues);
+    }
   }
 
   setOption(name, value) {
@@ -30,17 +82,19 @@ export class FormController {
     this.updater = cb;
   }
 
-  setUpdateCb(updateCb) {
-    this.updateCb = updateCb;
+  addUpdateCb(updateCb) {
+    if (!this.updateCbs.includes(updateCb)) {
+      this.updateCbs.push(updateCb);
+    }
   }
 
   isValuesInited() {
     return Object.keys(this.itemMap).every(name => this.getItem(name).valueInited);
   }
 
-  setAllValuesInited() {
+  setAllValuesInited(bool = true) {
     Object.keys(this.itemMap).forEach(name => {
-      this.getItem(name).valueInited = true;
+      this.getItem(name).valueInited = !!bool;
     });
   }
 
@@ -73,7 +127,9 @@ export class FormController {
         this.message = validate(val, preValue, this, controller) || '';
         if (!controller.options.messageAfterValueInited || this.valueInited) {
           requestAnimationFrame(() => {
-            this.setMessage(this.message);
+            if (!controller.options.messageManually) {
+              this.setMessage(this.message);
+            }
           });
         }
         return this.message;
@@ -114,8 +170,8 @@ export class FormController {
     const prevVal = this.values[name];
     this.values[name] = value;
 
-    if (this.updateCb) {
-      const ret = this.updateCb(name, value, prevVal, this.getItem(name));
+    if (this.updateCbs.length > 0) {
+      const ret = this.updateCbs.reduce((memo, cb) => (!memo ? false : !!cb.call(this, name, value, prevVal, this.getItem(name), this)), true);
       if (ret === true && this.updater) {
         this.updater();
       }

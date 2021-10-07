@@ -16,7 +16,7 @@ export function FormItem({ controller, name, onChange, validate, children }) {
   // message and value
   useEffect(() => {
     controller.onValueChanged(name, value);
-  }, [value, controller, name]);
+  }, [value]);
 
   return cloneElement(children, {
     message,

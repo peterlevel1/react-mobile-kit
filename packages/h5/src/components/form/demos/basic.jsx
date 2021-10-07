@@ -7,12 +7,14 @@ export default () => {
     <>
       <DemoBlock title='基本用法'>
         <Form
+          name='basic'
           initialValues={{
             name: '',
             age: '11'
           }}
           onUpdate={(name, value, preValue) => {
-            console.log('update form: ', name, value, preValue);
+            console.log('basic - update form: ', name, value, preValue);
+            return true;
           }}
           onSubmit={(values) => {
             alert(JSON.stringify(values));
@@ -21,8 +23,8 @@ export default () => {
           <Form.Item
             name='name'
             validate={(value) => {
-              if (/葱哥/.test(value)) {
-                return 'you should not let others know you are: 葱哥'
+              if (/帅哥/.test(value)) {
+                return 'you should not let others know you are: 帅哥'
               }
             }}
           >
@@ -82,14 +84,12 @@ const BasicInput = ({ message, ...restProps }) => {
 }
 
 const BasicSubmit = ({ controller }) => {
-  console.log('BasicSubmit - render');
-
   return (
     <Button
       block
       color='primary'
       type='submit'
-      disabled={!controller.isValuesInited() || controller.hasError()}
+      disabled={controller.hasError()}
     >
       提交
     </Button>

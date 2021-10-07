@@ -1,20 +1,18 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { LayerController } from './layer-controller';
 import { LayerGeneral } from './layer-general';
+import { useDummyUpdate } from '../../utils/use-dummy-update';
 
 const prefix = 'rmk-Layer';
 
 export function Layer({ controllerId, active, component, ...restProps }) {
-  const [ , update ] = useState(0);
-  const sync = useCallback(() => update((n) => (n + 1)), []);
-
   const [ controller ] = useState(() => new LayerController({
     id: controllerId,
     component: component || LayerGeneral,
     className: prefix
   }));
-  controller.sync = sync;
+  controller.sync = useDummyUpdate();
 
   useEffect(() => {
     if (!controller || controller.destroyed) {

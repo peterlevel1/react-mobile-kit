@@ -4,19 +4,10 @@ import { FormController } from './form-controller';
 import { noop } from '../../utils/noop';
 import { useDummyUpdate } from '../../utils/use-dummy-update';
 
-export function Form({ controller, onUpdate, initialValues, onSubmit, children }) {
-  const [ controller2 ] = useState(() => controller ?? new FormController());
-  const update = useDummyUpdate();
+export function Form({ controller, name, mode, initialValues, onUpdate, onSubmit, children }) {
+  const [ controller2 ] = useState(() => controller ?? new FormController({ name, mode, initialValues, onUpdate }));
 
-  controller2.setUpdater(update);
-
-  if (initialValues) {
-    controller2.setInitialValues(initialValues);
-  }
-
-  if (onUpdate) {
-    controller2.setUpdateCb(onUpdate);
-  }
+  controller2.setUpdater(useDummyUpdate());
 
   const onSubmit2 = useCallback((ev) => {
     ev.stopPropagation();
@@ -26,6 +17,7 @@ export function Form({ controller, onUpdate, initialValues, onSubmit, children }
     if (resValidate.message) {
       return;
     }
+
     onSubmit(resValidate.values);
   }, [controller2]);
 
@@ -51,5 +43,5 @@ Form.propTypes = {
 Form.defaultProps = {
   controller: null,
   initialValues: null,
-  onUpdate: noop,
+  onUpdate: null,
 };
